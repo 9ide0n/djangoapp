@@ -1,0 +1,6 @@
+.ropeproject
+*__pycache__*
+*local_settings*
+*.pyc
+static
+*migrations*
