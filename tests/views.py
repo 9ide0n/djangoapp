@@ -11,15 +11,3 @@ def app(request):
 def db(request, table_id):
     return HttpResponse(sum_query(eval("T%s" % table_id)))
 
-# def t3(request):
-#     return HttpResponse(sum_query(T3))
-#
-#
-# def t2(request):
-#     return HttpResponse(sum_query(T2))
-#
-#
-# def t1(request):
-#     return HttpResponse(sum_query(T1))
-
-
