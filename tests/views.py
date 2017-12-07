@@ -5,7 +5,7 @@ from .models import T1, T2, T3
 
 
 def app(request):
-    return HttpResponse(random_sort2(4000000))
+    return HttpResponse(random_sort2(5000000))
 
 
 def db(request, table_id):
