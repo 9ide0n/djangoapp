@@ -2,8 +2,9 @@
 
 {% block navigation %}
     <a href="{% url 'tests:app' %}">APP</a> /
-    <a href="{% url 'tests:db' 1%}">Execute1</a> /
-    <a href="{% url 'tests:db' 2%}">Execute2</a> /
-    <a href="{% url 'tests:db' 3%}">Execute3</a> /
+    <a href="{% url 'tests:db' 1%}">DB1</a> /
+    <a href="{% url 'tests:db' 2%}">DB2</a> /
+    <a href="{% url 'tests:db' 3%}">DB3</a> /
+    <a href="{% url 'tests:index' %}">Index</a> /
     <a href="{% url 'tests:clear' %}">Clear</a>
 {% endblock %}

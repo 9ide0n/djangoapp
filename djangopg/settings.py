@@ -172,8 +172,6 @@ CELERY_TASK_DEFAULT_ROUTING_KEY = 'normal'
 CELERY_TASK_ROUTES = {
     # -- HIGH PRIORITY QUEUE -- #
     'tests.tasks.sum_query': {'queue': 'high'},
-    # -- LOW PRIORITY QUEUE -- #
-    'tests.tasks.mul': {'queue': 'low'},
 }
 
 ##################
