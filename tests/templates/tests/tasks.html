@@ -3,5 +3,6 @@
 {% block task %}
     Details for {{ ar.task_id }} <br>
     Ready: {{ ar.state }} <br>
-    Result: {{ ar.result }} <br>
+    {{ ar.result }} <br>
+    Duration: {{ t.duration }}
 {% endblock %}
