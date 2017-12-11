@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Simple is Better Than Complex</title>
+  <style type="text/css">
+    body {
+      width: 800px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Django Celery Example</h1>
+    {% block navigation %}
+    {% endblock %}
+    <hr>
+    {% if task_list %}
+        <ul>
+        {% for task in task_list %}
+            <li><a href="{% url 'tests:task' task.id %}">{{ task.id }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <hr>
+    {% block task %}
+    {% endblock%}
+</body>
+</html>
+
+
+
