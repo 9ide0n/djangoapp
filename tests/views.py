@@ -1,13 +1,32 @@
-from django.http import HttpResponse
-from .helpers import random_sort2, sum_query
+from django.shortcuts import render
 
-from .models import T1, T2, T3
+from .tasks import random_sort2, sum_query
+from .models import Task
+from .utils import all_tasks_render, create_task_and_render
+from celery.result import AsyncResult
 
 
 def app(request):
-    return HttpResponse(random_sort2(5000000))
+    result = random_sort2.delay(5000000)
+    return create_task_and_render(request, result)
 
 
 def db(request, table_id):
-    return HttpResponse(sum_query(eval("T%s" % table_id)))
+    result = sum_query.delay(table_id)
+    return create_task_and_render(request, result)
 
+
+def clear(request):
+    Task.objects.all().delete()
+    return all_tasks_render(request)
+
+
+def index(request):
+    return all_tasks_render(request)
+
+
+def task(request, task_id):
+    t = Task.objects.get(pk=task_id)
+    ar = AsyncResult(task_id)
+    context = {'ar': ar, 't': t}
+    return render(request, 'tests/tasks.html', context)

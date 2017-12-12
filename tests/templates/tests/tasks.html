@@ -1,0 +1,8 @@
+{% extends 'navigation.html' %}
+
+{% block task %}
+    Details for {{ ar.task_id }} <br>
+    Ready: {{ ar.state }} <br>
+    {{ ar.result }} <br>
+    Duration: {{ t.duration }}
+{% endblock %}

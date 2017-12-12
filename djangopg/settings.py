@@ -52,21 +52,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'djangopg.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
 
 WSGI_APPLICATION = 'djangopg.wsgi.application'
 
@@ -153,6 +138,41 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip("/").split("/"))
 
 # Package/module name to import the root urlpatterns from for the project.
 ROOT_URLCONF = "%s.urls" % PROJECT_APP
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [(os.path.join(PROJECT_ROOT, 'templates')),],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+CELERY_BROKER_URL = "amqp://myuser:mypassword@192.168.202.10:5672/myvhost"
+CELERY_RESULT_BACKEND = 'cache+memcached://127.0.0.1:11211/'
+
+from kombu import Exchange, Queue
+
+CELERY_TASK_QUEUES = (
+    Queue('high', exchange=Exchange('high'), routing_key='high'),
+    Queue('normal', exchange=Exchange('normal'), routing_key='normal'),
+    Queue('low', exchange=Exchange('low'), routing_key='low'),
+)
+CELERY_TASK_DEFAULT_QUEUE = 'normal'
+CELERY_TASK_DEFAULT_EXCHANGE = 'normal'
+CELERY_TASK_DEFAULT_ROUTING_KEY = 'normal'
+CELERY_TASK_ROUTES = {
+    # -- HIGH PRIORITY QUEUE -- #
+    'tests.tasks.sum_query': {'queue': 'high'},
+}
 
 ##################
 # LOCAL SETTINGS #
