@@ -156,6 +156,8 @@ TEMPLATES = [
     },
 ]
 
+#celery worker -A djangopg --loglevel=info -n worker.high -Q high
+#celery multi start normal low high  -A djangopg  --loglevel=info --logfile=/projects/logs/%n%I.log -Q:1 normal -Q:2 low -Q:3 high
 CELERY_BROKER_URL = "amqp://myuser:mypassword@192.168.202.10:5672/myvhost"
 CELERY_RESULT_BACKEND = 'cache+memcached://127.0.0.1:11211/'
 
